@@ -53,13 +53,19 @@ echo "📦 Installing custom nodes..."
 cd "$COMFYUI_ROOT"
 mkdir -p custom_nodes
 
+# Configure git to use SSH instead of HTTPS (avoids credential issues)
+git config --global url."https://github.com/".insteadOf git@github.com:
+git config --global advice.detachedHead false
+
 # 1. ComfyUI-MMAudio (Audio Generation)
 echo "  → [1/6] Installing ComfyUI-MMAudio..."
 if [ ! -d "custom_nodes/ComfyUI-MMAudio" ]; then
     cd custom_nodes
-    git clone https://github.com/1038lab/ComfyUI-MMAudio.git
-    cd ComfyUI-MMAudio
-    pip install -r requirements.txt --no-cache-dir || echo "⚠️  Requirements install failed"
+    GIT_TERMINAL_PROMPT=0 git clone --depth 1 https://github.com/1038lab/ComfyUI-MMAudio.git || echo "⚠️  Clone failed"
+    if [ -d "ComfyUI-MMAudio" ]; then
+        cd ComfyUI-MMAudio
+        pip install -r requirements.txt --no-cache-dir 2>/dev/null || echo "⚠️  Requirements install failed"
+    fi
     cd "$COMFYUI_ROOT"
 else
     echo "    ✓ Already installed"
@@ -69,9 +75,11 @@ fi
 echo "  → [2/6] Installing ComfyUI-WanVideoWrapper..."
 if [ ! -d "custom_nodes/ComfyUI-WanVideoWrapper" ]; then
     cd custom_nodes
-    git clone https://github.com/turkyden/ComfyUI-WanVideoWrapper.git
-    cd ComfyUI-WanVideoWrapper
-    pip install -r requirements.txt --no-cache-dir || echo "⚠️  Requirements install failed"
+    GIT_TERMINAL_PROMPT=0 git clone --depth 1 https://github.com/turkyden/ComfyUI-WanVideoWrapper.git || echo "⚠️  Clone failed"
+    if [ -d "ComfyUI-WanVideoWrapper" ]; then
+        cd ComfyUI-WanVideoWrapper
+        pip install -r requirements.txt --no-cache-dir 2>/dev/null || echo "⚠️  Requirements install failed"
+    fi
     cd "$COMFYUI_ROOT"
 else
     echo "    ✓ Already installed"
@@ -81,7 +89,7 @@ fi
 echo "  → [3/6] Installing ComfyUI-Manager..."
 if [ ! -d "custom_nodes/ComfyUI-Manager" ]; then
     cd custom_nodes
-    git clone https://github.com/ltdrdata/ComfyUI-Manager.git
+    GIT_TERMINAL_PROMPT=0 git clone --depth 1 https://github.com/ltdrdata/ComfyUI-Manager.git || echo "⚠️  Clone failed"
     cd "$COMFYUI_ROOT"
 else
     echo "    ✓ Already installed"
@@ -91,9 +99,11 @@ fi
 echo "  → [4/6] Installing ComfyUI-VideoHelperSuite..."
 if [ ! -d "custom_nodes/ComfyUI-VideoHelperSuite" ]; then
     cd custom_nodes
-    git clone https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git
-    cd ComfyUI-VideoHelperSuite
-    pip install -r requirements.txt --no-cache-dir || echo "⚠️  Requirements install failed"
+    GIT_TERMINAL_PROMPT=0 git clone --depth 1 https://github.com/Kosinkadink/ComfyUI-VideoHelperSuite.git || echo "⚠️  Clone failed"
+    if [ -d "ComfyUI-VideoHelperSuite" ]; then
+        cd ComfyUI-VideoHelperSuite
+        pip install -r requirements.txt --no-cache-dir 2>/dev/null || echo "⚠️  Requirements install failed"
+    fi
     cd "$COMFYUI_ROOT"
 else
     echo "    ✓ Already installed"
@@ -103,7 +113,7 @@ fi
 echo "  → [5/6] Installing ComfyUI-Advanced-ControlNet..."
 if [ ! -d "custom_nodes/ComfyUI-Advanced-ControlNet" ]; then
     cd custom_nodes
-    git clone https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet.git
+    GIT_TERMINAL_PROMPT=0 git clone --depth 1 https://github.com/Kosinkadink/ComfyUI-Advanced-ControlNet.git || echo "⚠️  Clone failed"
     cd "$COMFYUI_ROOT"
 else
     echo "    ✓ Already installed"
@@ -113,9 +123,11 @@ fi
 echo "  → [6/6] Installing ComfyUI Custom Nodes..."
 if [ ! -d "custom_nodes/ComfyUI_Custom_Nodes_AlekPet" ]; then
     cd custom_nodes
-    git clone https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet.git
-    cd ComfyUI_Custom_Nodes_AlekPet
-    pip install -r requirements.txt --no-cache-dir || echo "⚠️  Requirements install failed"
+    GIT_TERMINAL_PROMPT=0 git clone --depth 1 https://github.com/AlekPet/ComfyUI_Custom_Nodes_AlekPet.git || echo "⚠️  Clone failed"
+    if [ -d "ComfyUI_Custom_Nodes_AlekPet" ]; then
+        cd ComfyUI_Custom_Nodes_AlekPet
+        pip install -r requirements.txt --no-cache-dir 2>/dev/null || echo "⚠️  Requirements install failed"
+    fi
     cd "$COMFYUI_ROOT"
 else
     echo "    ✓ Already installed"
